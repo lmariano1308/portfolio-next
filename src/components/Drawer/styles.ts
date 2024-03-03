@@ -12,10 +12,10 @@ export const Container = styled(motion.aside)`
   z-index: 999;
   width: 18rem;
 
-  justify-content: flex-start;
-  padding: 3.125rem;
+  justify-content: center;
   align-items: center;
   color: white;
+  gap: 30px;
 `
 
 export const Overlay = styled(motion.div)`
@@ -42,4 +42,18 @@ export const ButtonIcon = styled(motion.div)`
   align-items: center;
   padding: 10px;
   border-radius: 5px;
+`
+
+export const Content = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+`
+
+export const OverflowHidden = styled(motion.div)`
+  overflow: hidden;
+  width: 80%;
+  padding: 10px;
+  border-bottom: 2px solid #fff;
 `
