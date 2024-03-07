@@ -1,3 +1,4 @@
+'use client'
 import { colors } from '@/utils/variables'
 import styled from 'styled-components'
 
