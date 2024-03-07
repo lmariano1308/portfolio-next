@@ -3,24 +3,56 @@ import { forwardRef, useImperativeHandle, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, useCycle } from 'framer-motion'
 import * as S from './styles'
-import { List, X } from '@phosphor-icons/react'
+import {
+  Envelope,
+  GithubLogo,
+  House,
+  InstagramLogo,
+  LinkedinLogo,
+  List,
+  MagicWand,
+  User,
+  X,
+} from '@phosphor-icons/react'
 
 export const menuConfig = [
   {
     label: 'Home',
     path: '/',
+    icon: <House size={16} color="#b4b4b4" />,
   },
   {
     label: 'About',
     path: '/about',
+    icon: <User size={16} color="#b4b4b4" />,
   },
   {
     label: 'Projects',
     path: '/projects',
+    icon: <MagicWand size={16} color="#b4b4b4" />,
+  },
+]
+
+const socialMediaConfig = [
+  {
+    label: 'Email',
+    path: 'lucasmariano2000@hotmail.com',
+    icon: <Envelope size={16} color="#b4b4b4" />,
   },
   {
-    label: 'Contact',
-    path: '/contact',
+    label: 'Github',
+    path: 'www.github.com/lmariano1308',
+    icon: <GithubLogo size={16} color="#b4b4b4" />,
+  },
+  {
+    label: 'Linkedin',
+    path: 'www.linkedin.com/in/lmariano1308',
+    icon: <LinkedinLogo size={16} color="#b4b4b4" />,
+  },
+  {
+    label: 'Instagram',
+    path: 'www.instagram.com/lmariano1308',
+    icon: <InstagramLogo size={16} color="#b4b4b4" />,
   },
 ]
 
@@ -46,7 +78,7 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
       zIndex: 999,
       transition: {
         type: 'tween',
-        duration: 0.3,
+        duration: 0.5,
       },
     },
     closed: {
@@ -54,7 +86,7 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
       zIndex: 999,
       transition: {
         type: 'tween',
-        duration: 0.3,
+        duration: 0.5,
         delay: 0.3,
       },
     },
@@ -96,9 +128,11 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
 
   const contentVariants = {
     initial: {
+      opacity: 0,
       y: '30vh',
     },
     open: {
+      opacity: 1,
       y: 0,
     },
   }
@@ -120,9 +154,9 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
             variants={buttonVariants}
           >
             {open ? (
-              <X size={22} color="#fff" />
+              <X size={16} color="#b4b4b4" />
             ) : (
-              <List size={22} color="#fff" />
+              <List size={16} color="#b4b4b4" />
             )}
           </S.ButtonIcon>
         </AnimatePresence>
@@ -146,6 +180,7 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
                   variants={drawerVariants}
                   ref={drawerRef}
                 >
+                  <S.Label>Menu</S.Label>
                   {menuConfig.map((item, index) => {
                     return (
                       <S.OverflowHidden key={item.path}>
@@ -155,10 +190,29 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
                           animate="open"
                           exit="initial"
                           transition={{
-                            duration: 0.5,
-                            delay: 0.1 * index,
+                            duration: 0.3,
                           }}
                         >
+                          {item.icon}
+                          {item.label}
+                        </S.Content>
+                      </S.OverflowHidden>
+                    )
+                  })}
+                  <S.Label>Social</S.Label>
+                  {socialMediaConfig.map((item, index) => {
+                    return (
+                      <S.OverflowHidden key={item.path}>
+                        <S.Content
+                          variants={contentVariants}
+                          initial="initial"
+                          animate="open"
+                          exit="initial"
+                          transition={{
+                            duration: 0.3,
+                          }}
+                        >
+                          {item.icon}
                           {item.label}
                         </S.Content>
                       </S.OverflowHidden>

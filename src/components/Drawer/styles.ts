@@ -11,11 +11,11 @@ export const Container = styled(motion.aside)`
   top: 0;
   z-index: 999;
   width: 18rem;
-
-  justify-content: center;
-  align-items: center;
   color: white;
   gap: 30px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem;
 `
 
 export const Overlay = styled(motion.div)`
@@ -34,6 +34,8 @@ export const Button = styled(motion.button)`
   z-index: 1000;
   box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
   border-radius: 5px;
+  height: fit-content;
+  aspect-ratio: 1;
 `
 
 export const ButtonIcon = styled(motion.div)`
@@ -44,16 +46,22 @@ export const ButtonIcon = styled(motion.div)`
   border-radius: 5px;
 `
 
+export const Label = styled(motion.div)`
+  font-size: 1.2rem;
+  color: #b4b4b4;
+`
+
 export const Content = styled(motion.div)`
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 2rem;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+  gap: 10px;
+  color: #b4b4b4;
 `
 
 export const OverflowHidden = styled(motion.div)`
   overflow: hidden;
-  width: 80%;
+  width: 100%;
   padding: 10px;
-  border-bottom: 2px solid #fff;
 `

@@ -1,11 +1,6 @@
-import Image from "next/image";
+import Title from '@/components/Title'
+import Image from 'next/image'
 
 export default function Home() {
-  return (
-    <main>
-      <div>
-        oi
-      </div>
-    </main>
-  );
+  return <main></main>
 }

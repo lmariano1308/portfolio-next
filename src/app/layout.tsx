@@ -3,6 +3,7 @@ import { League_Spartan } from 'next/font/google'
 import GlobalStyle from './globals'
 import * as S from './styles'
 import Menu from '@/components/Menu'
+import StyledComponentsRegistry from '@/lib/registry'
 
 const LeagueSpartan = League_Spartan({
   subsets: ['latin-ext'],
@@ -20,12 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GlobalStyle />
       <body className={LeagueSpartan.className}>
-        <S.Container>
-          <Menu />
-          <S.Content>{children}</S.Content>
-        </S.Container>
+        <StyledComponentsRegistry>
+          <GlobalStyle />
+          <S.Container>
+            <Menu />
+            <S.Content>{children}</S.Content>
+          </S.Container>
+        </StyledComponentsRegistry>
       </body>
     </html>
   )
