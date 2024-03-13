@@ -1,60 +1,22 @@
 'use client'
 import { forwardRef, useImperativeHandle, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import { useTheme } from 'styled-components'
 import { AnimatePresence, useCycle } from 'framer-motion'
-import * as S from './styles'
 import {
   Envelope,
   GithubLogo,
   House,
   InstagramLogo,
+  Keyboard,
   LinkedinLogo,
   List,
   MagicWand,
   User,
   X,
 } from '@phosphor-icons/react'
-
-export const menuConfig = [
-  {
-    label: 'Home',
-    path: '/',
-    icon: <House size={16} color="#b4b4b4" />,
-  },
-  {
-    label: 'About',
-    path: '/about',
-    icon: <User size={16} color="#b4b4b4" />,
-  },
-  {
-    label: 'Projects',
-    path: '/projects',
-    icon: <MagicWand size={16} color="#b4b4b4" />,
-  },
-]
-
-const socialMediaConfig = [
-  {
-    label: 'Email',
-    path: 'lucasmariano2000@hotmail.com',
-    icon: <Envelope size={16} color="#b4b4b4" />,
-  },
-  {
-    label: 'Github',
-    path: 'www.github.com/lmariano1308',
-    icon: <GithubLogo size={16} color="#b4b4b4" />,
-  },
-  {
-    label: 'Linkedin',
-    path: 'www.linkedin.com/in/lmariano1308',
-    icon: <LinkedinLogo size={16} color="#b4b4b4" />,
-  },
-  {
-    label: 'Instagram',
-    path: 'www.instagram.com/lmariano1308',
-    icon: <InstagramLogo size={16} color="#b4b4b4" />,
-  },
-]
+import OverflowHidden from '../OverflowHidden'
+import * as S from './styles'
 
 interface DrawerControls {
   toggleDrawer: () => void
@@ -66,6 +28,53 @@ interface Props {}
 const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
   const [open, cycleOpen] = useCycle(false, true)
   const drawerRef = useRef<HTMLDivElement>(null)
+  const theme = useTheme()
+
+  const menuConfig = [
+    {
+      label: 'Home',
+      path: '/',
+      icon: <House size={16} color={theme.primary} />,
+    },
+    {
+      label: 'About',
+      path: '/about',
+      icon: <User size={16} color={theme.primary} />,
+    },
+    {
+      label: 'Projects',
+      path: '/projects',
+      icon: <MagicWand size={16} color={theme.primary} />,
+    },
+    {
+      label: 'Gear',
+      path: '/gear',
+      icon: <Keyboard size={16} color={theme.primary} />,
+    },
+  ]
+
+  const socialMediaConfig = [
+    {
+      label: 'Email',
+      path: 'lucasmariano2000@hotmail.com',
+      icon: <Envelope size={16} color={theme.primary} />,
+    },
+    {
+      label: 'Github',
+      path: 'www.github.com/lmariano1308',
+      icon: <GithubLogo size={16} color={theme.primary} />,
+    },
+    {
+      label: 'Linkedin',
+      path: 'www.linkedin.com/in/lmariano1308',
+      icon: <LinkedinLogo size={16} color={theme.primary} />,
+    },
+    {
+      label: 'Instagram',
+      path: 'www.instagram.com/lmariano1308',
+      icon: <InstagramLogo size={16} color={theme.primary} />,
+    },
+  ]
 
   useImperativeHandle(ref, () => ({
     toggleDrawer: () => cycleOpen(),
@@ -134,6 +143,27 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
     open: {
       opacity: 1,
       y: 0,
+      transition: {
+        type: 'tween',
+        duration: 0.5,
+        delay: 0.3,
+      },
+    },
+  }
+
+  const labelVariants = {
+    initial: {
+      opacity: 0,
+      y: '30vh',
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'tween',
+        duration: 0.35,
+        delay: 0.15,
+      },
     },
   }
 
@@ -154,9 +184,9 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
             variants={buttonVariants}
           >
             {open ? (
-              <X size={16} color="#b4b4b4" />
+              <X size={22} color={theme.primary} />
             ) : (
-              <List size={16} color="#b4b4b4" />
+              <List size={22} color={theme.primary} />
             )}
           </S.ButtonIcon>
         </AnimatePresence>
@@ -168,19 +198,28 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
             {createPortal(
               <>
                 <S.Container
-                  drag="x"
-                  dragConstraints={{ right: 0 }}
-                  onDragEnd={(event, info) => {
-                    if (info.offset.x < -100) cycleOpen()
-                  }}
-                  dragElastic={0.1}
+                  // drag="x"
+                  // dragConstraints={{ right: 0 }}
+                  // onDragEnd={(event, info) => {
+                  //   if (info.offset.x < -100) cycleOpen()
+                  // }}
+                  // dragElastic={0.1}
                   initial="closed"
                   animate="open"
                   exit="closed"
                   variants={drawerVariants}
                   ref={drawerRef}
                 >
-                  <S.Label>Menu</S.Label>
+                  <OverflowHidden>
+                    <S.Label
+                      variants={labelVariants}
+                      initial="initial"
+                      animate="open"
+                      exit="initial"
+                    >
+                      Menu
+                    </S.Label>
+                  </OverflowHidden>
                   {menuConfig.map((item, index) => {
                     return (
                       <S.OverflowHidden key={item.path}>
@@ -189,9 +228,6 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
                           initial="initial"
                           animate="open"
                           exit="initial"
-                          transition={{
-                            duration: 0.3,
-                          }}
                         >
                           {item.icon}
                           {item.label}
@@ -199,7 +235,16 @@ const Drawer = forwardRef<DrawerControls, Props>(({}, ref) => {
                       </S.OverflowHidden>
                     )
                   })}
-                  <S.Label>Social</S.Label>
+                  <OverflowHidden>
+                    <S.Label
+                      variants={labelVariants}
+                      initial="initial"
+                      animate="open"
+                      exit="initial"
+                    >
+                      Social
+                    </S.Label>
+                  </OverflowHidden>
                   {socialMediaConfig.map((item, index) => {
                     return (
                       <S.OverflowHidden key={item.path}>

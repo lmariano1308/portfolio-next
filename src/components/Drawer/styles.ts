@@ -1,15 +1,14 @@
-import { colors } from '@/utils/variables'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export const Container = styled(motion.aside)`
-  background-color: ${colors.background};
+  background-color: ${(props) => props.theme.background};
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 2;
   width: 18rem;
   color: white;
   gap: 30px;
@@ -24,15 +23,15 @@ export const Overlay = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
-  background: rgba(0, 0, 0, 0.9);
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
 `
 export const Button = styled(motion.button)`
   all: unset;
-  z-index: 1000;
-  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
+  z-index: 3;
+  border: 1px solid ${(props) => props.theme.primary};
   border-radius: 5px;
   height: fit-content;
   aspect-ratio: 1;
@@ -49,6 +48,7 @@ export const ButtonIcon = styled(motion.div)`
 export const Label = styled(motion.div)`
   font-size: 1.2rem;
   color: #b4b4b4;
+  overflow: hidden;
 `
 
 export const Content = styled(motion.div)`
